@@ -4,4 +4,6 @@ export const expiryKeys = {
   batches: (params) => ['expiry', 'batches', params],
   suppliers: (params) => ['expiry', 'suppliers', params],
   filterOptions: () => ['expiry', 'filter-options'],
+  lossAnalytics: () => ['expiry', 'loss-analytics'],
+  batchDetail: (id) => ['expiry', 'batch', id],
 };

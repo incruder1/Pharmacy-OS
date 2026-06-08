@@ -40,17 +40,17 @@ export function ExpiryMetricsRow() {
       </Col>
       <Col {...COL}>
         <StatCard
-          title="Medicines Near Expiry"
+          title="Products Expiring in 30 Days"
           value={data ? formatNumber(data.medicinesNearExpiry) : '—'}
           icon={<ClockCircleOutlined />}
           accent={colors.info}
-          footer="within 30 days"
+          footer="unique products"
           loading={isLoading}
         />
       </Col>
       <Col {...COL}>
         <StatCard
-          title="Est. Recoverable Value"
+          title="Recoverable Inventory Value"
           value={data ? formatCurrency(data.estimatedRecoverableValue) : '—'}
           icon={<RiseOutlined />}
           accent={colors.success}

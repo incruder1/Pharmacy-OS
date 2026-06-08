@@ -20,3 +20,21 @@ export const EXPIRY_STATUS_MAP = {
   warning: { color: 'gold', label: 'Warning (≤60d)' },
   watch: { color: 'blue', label: 'Watch (≤90d)' },
 };
+
+/** Risk level tags for batch table (color-coded). */
+export const RISK_LEVEL_MAP = {
+  Expired: { color: '#dc2626', tag: 'red', label: 'Expired' },
+  Critical: { color: '#ea580c', tag: 'volcano', label: 'Critical' },
+  High: { color: '#d97706', tag: 'orange', label: 'High' },
+  Medium: { color: '#ca8a04', tag: 'gold', label: 'Medium' },
+  Low: { color: '#2563eb', tag: 'blue', label: 'Low' },
+};
+
+/** Left border accent per risk level for table rows. */
+export const RISK_BORDER_COLORS = {
+  Expired: '#dc2626',
+  Critical: '#ea580c',
+  High: '#f97316',
+  Medium: '#eab308',
+  Low: '#93c5fd',
+};

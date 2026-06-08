@@ -11,6 +11,7 @@ export const useExpiryStore = create((set) => ({
   filters: { supplierId: undefined, category: undefined },
   page: 1,
   pageSize: 10,
+  selectedBatchId: null,
 
   setWindow: (window) => set({ window, page: 1 }),
   setViewMode: (viewMode) => set({ viewMode, page: 1 }),
@@ -18,6 +19,8 @@ export const useExpiryStore = create((set) => ({
   setFilter: (key, value) =>
     set((s) => ({ filters: { ...s.filters, [key]: value || undefined }, page: 1 })),
   setPage: (page, pageSize) => set((s) => ({ page, pageSize: pageSize ?? s.pageSize })),
+  setSelectedBatchId: (selectedBatchId) => set({ selectedBatchId }),
+  clearSelectedBatch: () => set({ selectedBatchId: null }),
   reset: () =>
     set({
       window: DEFAULT_WINDOW,
@@ -25,6 +28,7 @@ export const useExpiryStore = create((set) => ({
       search: '',
       filters: { supplierId: undefined, category: undefined },
       page: 1,
+      selectedBatchId: null,
     }),
 }));
 

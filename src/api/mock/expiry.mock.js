@@ -1,6 +1,7 @@
 import { mockRequest } from './network';
 import { matchesSearch, paginate } from './utils';
 import { buildExpiryRows, getExpiryWindow } from './expiry.data';
+import { suppliersSeed } from './suppliers.data';
 
 const RECOVERABLE_RATE = 0.65;
 let cache = null;
@@ -132,6 +133,57 @@ export function exportExpiryReport(params = {}) {
   );
   const csv = header + lines.join('\n');
   return mockRequest({ filename: `expiry-report-${params.window ?? 'all'}.csv`, csv, rowCount: filtered.length });
+}
+
+/** Inventory loss analytics for the expiry center. */
+export function getExpiryLossAnalytics() {
+  const all = rows();
+  const expired = all.filter((r) => r.window === 'expired');
+  const atRisk = all.filter((r) => r.window !== 'expired' && r.window !== 'beyond');
+
+  const totalExpiredLoss = expired.reduce((s, r) => s + valueAtRisk(r), 0);
+  const projectedLoss = atRisk.reduce((s, r) => s + valueAtRisk(r) * 0.85, 0);
+
+  const buckets = [
+    { label: 'Expired', filter: (r) => r.window === 'expired', color: '#dc2626' },
+    { label: '≤30 days', filter: (r) => r.window === '30d', color: '#ea580c' },
+    { label: '31–60 days', filter: (r) => r.window === '60d', color: '#d97706' },
+    { label: '61–90 days', filter: (r) => r.window === '90d', color: '#ca8a04' },
+  ];
+
+  const breakdown = buckets.map((b) => ({
+    label: b.label,
+    value: all.filter(b.filter).reduce((s, r) => s + valueAtRisk(r), 0),
+    color: b.color,
+  }));
+
+  return mockRequest({ totalExpiredLoss, projectedLoss: Math.round(projectedLoss), breakdown });
+}
+
+/** Full batch detail for the drawer, including supplier contact. */
+export function getExpiryBatchDetail(id) {
+  const batch = rows().find((r) => r.id === id);
+  if (!batch) return mockRequest(null);
+
+  const supplier = suppliersSeed.find((s) => s.id === batch.supplierId);
+  const actions = [];
+
+  if (batch.daysToExpiry < 0) {
+    actions.push('Write off expired stock', 'Return to supplier (if eligible)', 'Document for audit');
+  } else if (batch.daysToExpiry <= 30) {
+    actions.push('Discount sale', 'Return to supplier', 'Transfer to sister store');
+  } else {
+    actions.push('Monitor weekly', 'Plan promotional bundle', 'Negotiate supplier return');
+  }
+
+  const detail = {
+    ...batch,
+    supplierContact: supplier?.contactPerson ?? '—',
+    supplierPhone: supplier?.phone ?? '—',
+    supplierEmail: supplier?.email ?? '—',
+    suggestedActions: actions,
+  };
+  return mockRequest(detail);
 }
 
 export { getExpiryWindow };

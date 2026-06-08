@@ -1,0 +1,43 @@
+.page {
+  animation: fadeIn 0.25s ease both;
+}
+
+.heroMetric {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  border: none !important;
+  box-shadow: 0 8px 32px -8px rgba(99, 102, 241, 0.45);
+}
+
+.metrics {
+  margin-bottom: 20px;
+}
+
+.insightCard {
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1px solid;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.widgetsRow {
+  margin-top: 4px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroMetric {
+    margin-bottom: 8px;
+  }
+}

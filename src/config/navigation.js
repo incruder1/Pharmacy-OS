@@ -9,6 +9,7 @@ import {
   BarChartOutlined,
   SettingOutlined,
   ClockCircleOutlined,
+  FundOutlined,
 } from '@ant-design/icons';
 import { PERMISSIONS } from './permissions';
 
@@ -18,6 +19,7 @@ import { PERMISSIONS } from './permissions';
  */
 export const NAV_ITEMS = [
   { key: 'dashboard', label: 'Dashboard', path: '/dashboard', icon: DashboardOutlined, permission: PERMISSIONS.DASHBOARD },
+  { key: 'insights', label: 'Owner Insights', path: '/insights', icon: FundOutlined, permission: PERMISSIONS.INSIGHTS },
   { key: 'billing', label: 'Billing (POS)', path: '/billing', icon: DollarOutlined, permission: PERMISSIONS.BILLING },
   { key: 'products', label: 'Products', path: '/products', icon: MedicineBoxOutlined, permission: PERMISSIONS.PRODUCTS },
   { key: 'inventory', label: 'Inventory', path: '/inventory', icon: DatabaseOutlined, permission: PERMISSIONS.INVENTORY },

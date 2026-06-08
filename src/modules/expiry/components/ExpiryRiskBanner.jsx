@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Badge, Button } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 import { formatCurrency } from '@/utils';
 import { useExpiryMetrics } from '../hooks';
@@ -13,19 +13,25 @@ export function ExpiryRiskBanner() {
   if (!data || (data.expiredInventoryValue === 0 && data.expiryRiskValue === 0)) return null;
 
   const totalLoss = data.expiredInventoryValue + data.expiryRiskValue;
+  const isCritical = data.expiredCount > 0 || data.medicinesNearExpiry > 5;
 
   return (
-    <div className={styles.riskBanner}>
-      <WarningOutlined className={styles.riskBannerIcon} />
+    <div className={`${styles.riskBanner} ${isCritical ? styles.riskBannerCritical : ''}`}>
+      <Badge dot={isCritical} color="#dc2626">
+        <WarningOutlined className={styles.riskBannerIcon} />
+      </Badge>
       <div className={styles.riskBannerText}>
         <div className={styles.riskBannerTitle}>
           {formatCurrency(totalLoss)} tied up in expiry risk
         </div>
         <div className={styles.riskBannerSub}>
-          Act now on expired stock and batches expiring within 90 days to protect margins.
+          {data.expiredCount > 0
+            ? `${data.expiredCount} expired batches need immediate write-off or return. `
+            : ''}
+          Act on {data.medicinesNearExpiry} products expiring within 30 days to protect margins.
         </div>
       </div>
-      <Button loading={exportMutation.isPending} onClick={() => exportMutation.mutate()}>
+      <Button type={isCritical ? 'primary' : 'default'} danger={isCritical} loading={exportMutation.isPending} onClick={() => exportMutation.mutate()}>
         Export Report
       </Button>
     </div>

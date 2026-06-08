@@ -38,6 +38,15 @@ export const expiryBatchesSeed = [
   { id: 'EXP-030', productName: 'Neurobion Forte', genericName: 'Vitamin B Complex', category: 'Tablet', batchNumber: 'NB4401', supplierId: 'SUP-MER01', supplierName: 'Merck India Dist', quantity: 105, mrp: 68, costPrice: 42, expiryDays: 16 },
 ];
 
+/** Map days-to-expiry into a human-readable risk tier. */
+export function getRiskLevel(daysToExpiry) {
+  if (daysToExpiry < 0) return 'Expired';
+  if (daysToExpiry <= 14) return 'Critical';
+  if (daysToExpiry <= 30) return 'High';
+  if (daysToExpiry <= 60) return 'Medium';
+  return 'Low';
+}
+
 /** Enrich seed rows with computed expiry dates, days, value, and status. */
 export function buildExpiryRows() {
   const now = dayjs();
@@ -63,6 +72,7 @@ export function buildExpiryRows() {
       daysToExpiry,
       inventoryValue,
       status,
+      riskLevel: getRiskLevel(daysToExpiry),
       window: getExpiryWindow(daysToExpiry),
     };
   });

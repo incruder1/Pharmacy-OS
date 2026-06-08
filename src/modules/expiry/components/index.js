@@ -5,3 +5,5 @@ export { ExpirySectionTabs } from './ExpirySectionTabs';
 export { ExpiryFilters } from './ExpiryFilters';
 export { ExpiryBatchTable } from './ExpiryBatchTable';
 export { ExpirySupplierView } from './ExpirySupplierView';
+export { ExpiryBatchDrawer } from './ExpiryBatchDrawer';
+export { ExpiryLossAnalytics } from './ExpiryLossAnalytics';

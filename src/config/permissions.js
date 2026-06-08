@@ -22,13 +22,14 @@ export const PERMISSIONS = {
   REPORTS: 'reports',
   SETTINGS: 'settings',
   EXPIRY: 'expiry',
+  INSIGHTS: 'insights.view',
 };
 
 /** Permissions granted to each role. */
 export const ROLE_PERMISSIONS = {
   [ROLES.OWNER]: ['*'],
   [ROLES.STORE_MANAGER]: [
-    'dashboard', 'products', 'inventory', 'expiry', 'purchases', 'suppliers', 'billing', 'sales', 'reports', 'settings',
+    'dashboard', 'insights.view', 'products', 'inventory', 'expiry', 'purchases', 'suppliers', 'billing', 'sales', 'reports', 'settings',
   ],
   [ROLES.PHARMACIST]: [
     'dashboard', 'products', 'inventory', 'expiry', 'purchases', 'suppliers', 'billing', 'sales', 'reports',

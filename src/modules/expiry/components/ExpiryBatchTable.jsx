@@ -1,36 +1,39 @@
 import { Tag, Typography } from 'antd';
+import { WarningFilled } from '@ant-design/icons';
 import { DataTable } from '@/components/DataTable';
 import { colors } from '@/app/theme';
 import { formatCurrency, formatDate, formatNumber } from '@/utils';
+import { RISK_BORDER_COLORS, RISK_LEVEL_MAP } from '../constants';
 import { useExpiryBatches } from '../hooks';
 import { useExpiryStore } from '../store/expiryStore';
-import { EXPIRY_STATUS_MAP } from '../constants';
+import styles from '../expiry.module.scss';
 
 const { Text } = Typography;
 
 export function ExpiryBatchTable() {
   const { data, isFetching } = useExpiryBatches();
-  const { page, pageSize, setPage } = useExpiryStore();
+  const { page, pageSize, setPage, setSelectedBatchId } = useExpiryStore();
 
   const columns = [
     {
       title: 'Product',
       dataIndex: 'productName',
       render: (name, r) => (
-        <div>
-          <Text strong style={{ color: colors.textPrimary, display: 'block' }}>{name}</Text>
-          <Text style={{ color: colors.textTertiary, fontSize: 12 }}>{r.genericName}</Text>
+        <div className={styles.productCell}>
+          {(r.riskLevel === 'Critical' || r.riskLevel === 'Expired') && (
+            <WarningFilled className={styles.criticalIcon} />
+          )}
+          <div>
+            <Text strong style={{ color: colors.textPrimary, display: 'block' }}>{name}</Text>
+            <Text style={{ color: colors.textTertiary, fontSize: 12 }}>{r.genericName}</Text>
+          </div>
         </div>
       ),
     },
-    { title: 'Batch', dataIndex: 'batchNumber', width: 100 },
+    { title: 'Batch Number', dataIndex: 'batchNumber', width: 110 },
+    { title: 'Supplier', dataIndex: 'supplierName', ellipsis: true },
     {
-      title: 'Supplier',
-      dataIndex: 'supplierName',
-      ellipsis: true,
-    },
-    {
-      title: 'Expiry',
+      title: 'Expiry Date',
       dataIndex: 'expiryDate',
       render: (d, r) => (
         <div>
@@ -46,21 +49,28 @@ export function ExpiryBatchTable() {
         </div>
       ),
     },
-    { title: 'Qty', dataIndex: 'quantity', align: 'right', render: (q) => formatNumber(q) },
-    { title: 'MRP', dataIndex: 'mrp', align: 'right', render: (v) => formatCurrency(v) },
-    { title: 'Cost', dataIndex: 'costPrice', align: 'right', render: (v) => formatCurrency(v) },
     {
-      title: 'Value at Risk',
+      title: 'Remaining Qty',
+      dataIndex: 'quantity',
+      align: 'right',
+      render: (q) => formatNumber(q),
+    },
+    {
+      title: 'Inventory Value',
       dataIndex: 'inventoryValue',
       align: 'right',
       render: (v) => <Text strong>{formatCurrency(v)}</Text>,
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      render: (s) => {
-        const preset = EXPIRY_STATUS_MAP[s] ?? { color: 'default', label: s };
-        return <Tag color={preset.color} style={{ margin: 0, borderRadius: 999 }}>{preset.label}</Tag>;
+      title: 'Risk Level',
+      dataIndex: 'riskLevel',
+      render: (level) => {
+        const preset = RISK_LEVEL_MAP[level] ?? { tag: 'default', label: level };
+        return (
+          <Tag color={preset.tag} style={{ margin: 0, borderRadius: 999, fontWeight: 600 }}>
+            {preset.label}
+          </Tag>
+        );
       },
     },
   ];
@@ -71,6 +81,14 @@ export function ExpiryBatchTable() {
       dataSource={data?.data}
       loading={isFetching}
       emptyText="No batches in this expiry window"
+      onRow={(record) => ({
+        onClick: () => setSelectedBatchId(record.id),
+        className: styles[`riskRow${record.riskLevel}`] ?? '',
+        style: {
+          borderLeft: `3px solid ${RISK_BORDER_COLORS[record.riskLevel] ?? colors.border}`,
+          cursor: 'pointer',
+        },
+      })}
       pagination={{
         current: page,
         pageSize,

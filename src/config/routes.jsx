@@ -13,6 +13,7 @@ const SalesPage = lazy(() => import('@/pages/SalesPage'));
 const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
 const SettingsPage = lazy(() => import('@/pages/SettingsPage'));
 const ExpiryPage = lazy(() => import('@/pages/ExpiryPage'));
+const InsightsPage = lazy(() => import('@/pages/InsightsPage'));
 
 /**
  * Central route config consumed by App.jsx. Each route declares its element and
@@ -20,6 +21,7 @@ const ExpiryPage = lazy(() => import('@/pages/ExpiryPage'));
  */
 export const ROUTES = [
   { path: 'dashboard', element: <DashboardPage />, permission: PERMISSIONS.DASHBOARD },
+  { path: 'insights', element: <InsightsPage />, permission: PERMISSIONS.INSIGHTS },
   { path: 'billing', element: <BillingPage />, permission: PERMISSIONS.BILLING },
   { path: 'products', element: <ProductsPage />, permission: PERMISSIONS.PRODUCTS },
   { path: 'inventory', element: <InventoryPage />, permission: PERMISSIONS.INVENTORY },
