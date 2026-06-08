@@ -1,0 +1,36 @@
+.shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+
+  @media (max-width: 880px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brandPane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
+
+  @media (max-width: 880px) {
+    display: none;
+  }
+}
+
+.formPane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: #f8fafc;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 380px;
+}

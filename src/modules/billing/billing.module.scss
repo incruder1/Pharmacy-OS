@@ -1,0 +1,95 @@
+// POS layout tokens (mirror src/app/theme/tokens.js)
+$radius-lg: 12px;
+$border: #e2e8f0;
+$bg-container: #ffffff;
+$text-tertiary: #94a3b8;
+$gap: 16px;
+
+.pos {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: $gap;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  min-width: 0;
+}
+
+.right {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+.panel {
+  background: $bg-container;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 16px;
+}
+
+.searchResults {
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.resultRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.active,
+  &:hover {
+    background: #eef2ff;
+  }
+}
+
+.emptyCart {
+  text-align: center;
+  color: $text-tertiary;
+  padding: 48px 16px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.grandTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px dashed $border;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.balance {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-top: 8px;
+}
