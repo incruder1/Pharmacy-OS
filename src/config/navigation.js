@@ -8,6 +8,7 @@ import {
   FileTextOutlined,
   BarChartOutlined,
   SettingOutlined,
+  ClockCircleOutlined,
 } from '@ant-design/icons';
 import { PERMISSIONS } from './permissions';
 
@@ -20,6 +21,7 @@ export const NAV_ITEMS = [
   { key: 'billing', label: 'Billing (POS)', path: '/billing', icon: DollarOutlined, permission: PERMISSIONS.BILLING },
   { key: 'products', label: 'Products', path: '/products', icon: MedicineBoxOutlined, permission: PERMISSIONS.PRODUCTS },
   { key: 'inventory', label: 'Inventory', path: '/inventory', icon: DatabaseOutlined, permission: PERMISSIONS.INVENTORY },
+  { key: 'expiry', label: 'Expiry Center', path: '/expiry', icon: ClockCircleOutlined, permission: PERMISSIONS.EXPIRY },
   { key: 'purchases', label: 'Purchases', path: '/purchases', icon: ShoppingCartOutlined, permission: PERMISSIONS.PURCHASES },
   { key: 'suppliers', label: 'Suppliers', path: '/suppliers', icon: TeamOutlined, permission: PERMISSIONS.SUPPLIERS },
   { key: 'sales', label: 'Sales History', path: '/sales', icon: FileTextOutlined, permission: PERMISSIONS.SALES },
