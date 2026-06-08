@@ -20,6 +20,7 @@ export function Topbar({ profile }) {
           prefix={<SearchOutlined style={{ color: '#94a3b8' }} />}
           placeholder="Search…"
           style={{ width: 220 }}
+          aria-label="Global search"
           onPressEnter={(e) => e.currentTarget.value && navigate('/products')}
         />
         <Tooltip title="New sale">

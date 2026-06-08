@@ -10,6 +10,7 @@ import {
   SettingOutlined,
   ClockCircleOutlined,
   FundOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons';
 import { PERMISSIONS } from './permissions';
 
@@ -24,6 +25,7 @@ export const NAV_ITEMS = [
   { key: 'products', label: 'Products', path: '/products', icon: MedicineBoxOutlined, permission: PERMISSIONS.PRODUCTS },
   { key: 'inventory', label: 'Inventory', path: '/inventory', icon: DatabaseOutlined, permission: PERMISSIONS.INVENTORY },
   { key: 'expiry', label: 'Expiry Center', path: '/expiry', icon: ClockCircleOutlined, permission: PERMISSIONS.EXPIRY },
+  { key: 'reorder', label: 'Reorder Center', path: '/reorder', icon: ReloadOutlined, permission: PERMISSIONS.REORDER },
   { key: 'purchases', label: 'Purchases', path: '/purchases', icon: ShoppingCartOutlined, permission: PERMISSIONS.PURCHASES },
   { key: 'suppliers', label: 'Suppliers', path: '/suppliers', icon: TeamOutlined, permission: PERMISSIONS.SUPPLIERS },
   { key: 'sales', label: 'Sales History', path: '/sales', icon: FileTextOutlined, permission: PERMISSIONS.SALES },
